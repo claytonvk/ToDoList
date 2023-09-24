@@ -3,8 +3,7 @@ const path = require("path");
 
 const app = express();
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const port = process.env.PORT || 3001;
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -16,6 +15,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "./views/index.html"));
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+const server = app.listen(port, () =>
+  console.log(`Example app listening on port ${port}!`)
+);
+
+server.keepAliveTimeout = 120 * 1000;
+server.headersTimeout = 120 * 1000;
