@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  background: url('/media/wave.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  margin: 0;
+}
+
+form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.form-control {
+  text-align: center;
+  color: white;
+}
+
+label,
+input,
+textarea {
+  margin: 0.5rem 0;
+  text-align: center;
+  color: white;
+
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
+  font: inherit;
+  padding: 0.2rem 0.4rem;
+  width: 100%;
+  max-width: 30rem;
+  border: 1px solid white;
+  background: none;
+  
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  color: #21515F;
+  background: white;
+}
+
+button {
+  font: inherit;
+  font-size: .75rem;
+  background: none;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white;
+  height: 3rem;
+  padding: 0.5rem .75rem;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover,
+button:active {
+  transform:translateY(-1px);
+  /* transform:translateY(-2px); */
+  box-shadow: 2px 2px 10px #1A2527;
+}
+
+#container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  margin: 1rem;
+  width: 45%;
+  background: #1a252774;
+  border-color: white;
+  
+}
+
+.projects header {
+  border: white 1px solid;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#finished-projects {
+  border-color: #1a252774;
+}
+
+.projects h2 {
+  margin: 0;
+  color: white;
+}
+
+.projects ul {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  height: 100%;
+}
+
+.projects li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+  padding: .25rem 1rem;
+  margin: 1rem;
+  background-color: white;
+  transition: .2s linear;
+}
+
+.projects li:hover {
+  transform: translateX(1px);
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 35px #1A2527;
+}
+
+.projects li h2 {
+  display: inline;
+  margin: .25rem auto;
+  font-size: .75rem;
+  color: #578698;
+  margin: 0.5rem 0;
+}
+
+#finished-projects li h2 {
+  color: #1a252774;
+}
+
+.projects li h3 {
+  display: inline;
+  margin: .25rem auto;
+  font-size: .5rem;
+  color: #575757;
+}
+
+.projects li p {
+  margin: .25rem auto;
+  font-size: .9rem;
+  color: #1a2527;
+}
+
+.projects li img {
+  height: 15px;
+  background-color: none;
+  transition: .1s linear;
+}
+
+.projects li img:hover {
+  transform:translateY(-2px);
+}
+
+.droppable {
+  background: #1a252774;
+}
+
+#finished-projects .droppable {
+  background: #1a252774;
+}
+
+#user-input {
+  margin: 1rem .2rem 0;
+  height: 130px;
+  background: #1a252774;
+}
+
+#title-control {
+  width: 20%;
+}
+
+#description-control {
+  width: 35%;
+}
+
+#priority-control {
+width: 15%;
+}
+
+#priority {
+  padding: 0;
+  background-color: none;
+  accent-color: #AEC1CE;
+}
+
+.audio {
+  display: inline;
+  padding: 0 50px;
+}
+
+.audio-control-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); 
+  background: #1a2527ca;
+  width: 80%;
+}
+
+.controller {
+  display: flex;
+  justify-content: space-between;
+}
+
+#musicCheckbox,
+#whiteNoiseCheckbox,
+#partyCheckbox {
+  width: auto;
+}
+
+.hidden {
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 29px;
+  color: white; /* Text color */
+  font-size: 12rem; /* Adjust the font size as needed */
+  display: none;
+}
+
+.visible {
+  display: flex;
+}
+
+/* ColorScheme:
+#AEC1CE - Lightest Blue
+#769FAF
+#578698
+#366A78 
+#21515F
+#1A2527 - Darkest Blue
+#607987 - Light Grey
+#3E4A4F - Darl Grey */

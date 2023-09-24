@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ProjectManager</title>
+    <link rel="stylesheet" href="../css/app.css" />
+    <script type="module" src="../javascript/dist/main.js"></script>
+    <script src="../javascript/audioControl.js" defer></script>
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <template id="project-input">
+        <form>
+            <div class="form-control" id="title-control">
+                <label for="title">Title</label>
+                <input type="text" id="title" />
+            </div>
+            <div class="form-control" id="description-control">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3"></textarea>
+            </div>
+            <div class="form-control" id="priority-control">
+                <label for="priority">Priority</label>
+                <input type="range" id="priority" step="1" min="1" max="5" oninput="rangevalue.value=value" />
+                <input type="number" id="rangevalue" step="1" min="1" max="5" value="3" oninput="range.value=value"
+                    disabled>
+            </div>
+            <button type="submit">ADD PROJECT</button>
+        </form>
+    </template>
+
+    <template id="single-project">
+        <li draggable="true">
+            <div class="content">
+                <h2></h2>
+                <h3></h3>
+                <p></p>
+            </div>
+            <form action="">
+                <img id="cancel" src="./media/xmark-solid.svg" alt="">
+            </form>
+
+        </li>
+    </template>
+
+    <template id="project-list">
+        <section class="projects">
+            <header>
+                <h2></h2>
+            </header>
+            <ul></ul>
+        </section>
+    </template>
+
+    <div id="app">
+        <div id="container"></div>
+    </div>
+    <div class="audio-control-panel">
+        <div class="controller">
+            <div class="audio" id="music-controls">
+                <label for="musicCheckbox">Play Music</label>
+                <input type="checkbox" id="musicCheckbox" />
+                <audio id="music">
+                    <source src="../media/ES_Carried By Waves - Ambientalism.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="audio" id="whiteNoise-controls">
+                <label for="whiteNoiseCheckbox">Play White Noise</label>
+                <input type="checkbox" id="whiteNoiseCheckbox" />
+                <br />
+                <audio id="whiteNoise">
+                    <source src="../media/ES_Water Ocean Waves - SFX Producer.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="audio" id="party-controls">
+                <label for="partyCheckbox">Take a Break!</label>
+                <input type="checkbox" id="partyCheckbox" />
+                <br />
+                <audio id="party">
+                    <source src="../media/ES_French Party - Adua Blaize.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </div>
+    <div id="partyText" class="hidden">PARTY!</div>
+
+</body>
+
+</html>
