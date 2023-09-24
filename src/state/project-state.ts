@@ -12,11 +12,24 @@ class State<T>{
 }
 
 export class ProjectState extends State<Project>{
-  private projects: Project[] = [];
+  private projects: Project[];
   private static instance: ProjectState;
 
   private constructor () {
       super()
+      const userDataArray = localStorage.getItem('userData');
+      if(userDataArray){
+        const userData = JSON.parse(userDataArray);
+        const updatedData: Project[] = []
+        for(const i of userData) {
+          if(i.status < 1){
+            updatedData.push(i)
+          }
+        }
+        this.projects = updatedData
+      } else {
+        this.projects = []
+      }
   }
 
   static getInstance() {
@@ -48,8 +61,8 @@ export class ProjectState extends State<Project>{
       this.updateListeners();
     }
   }
-
-  private updateListeners() {
+  //private
+   updateListeners() {
     for(const listenerFn of this.listeners) {
       listenerFn(this.projects.slice())
   }

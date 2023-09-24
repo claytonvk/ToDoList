@@ -10,7 +10,20 @@ class State {
 export class ProjectState extends State {
     constructor() {
         super();
-        this.projects = [];
+        const userDataArray = localStorage.getItem('userData');
+        if (userDataArray) {
+            const userData = JSON.parse(userDataArray);
+            const updatedData = [];
+            for (const i of userData) {
+                if (i.status < 1) {
+                    updatedData.push(i);
+                }
+            }
+            this.projects = updatedData;
+        }
+        else {
+            this.projects = [];
+        }
     }
     static getInstance() {
         if (this.instance) {

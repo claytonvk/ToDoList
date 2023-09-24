@@ -18,7 +18,7 @@ export abstract class Component<T extends HTMLElement,U extends HTMLElement> {
         this.attach(insertAtStart);
     }
   
-    private attach(insertAtStart: Boolean) {
+    protected attach(insertAtStart: Boolean) {
         this.hostElement.insertAdjacentElement
         (insertAtStart? 'afterbegin' : 'beforeend', 
         this.element)

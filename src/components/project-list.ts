@@ -14,10 +14,16 @@ implements DragTarget{
   constructor (private type: 'active' | 'finished' | 'deleted'){
       super('project-list', 'container', false, `${type}-projects`)
       //
-      this.assignedProjects = [];
+      const userDataArray = localStorage.getItem('userData');
+      if(userDataArray){
+        const userData = JSON.parse(userDataArray);
+        userData.filter((prj: Project) => prj.status == ProjectStatus.Active)
+        this.assignedProjects = userData
+      } else {
+        this.assignedProjects = [];
+      }
       this.configure()
       this.renderContent()
-      // this.cancelHandler();
   }
 
   @autobind
@@ -62,14 +68,15 @@ implements DragTarget{
               } else {
               return prj.status === ProjectStatus.Deleted;
             }
-              
             });
-            
+          localStorage.removeItem('userData');
+          const data = projects;
+          localStorage.setItem('userData', JSON.stringify(data));
           this.assignedProjects = relevantProjects;
-          console.log(this.assignedProjects)
           // THIS IS WHERE I WOULD UPDATE STATUS IN MONGO
           this.renderProjects();
-      });
+        });
+      projectState.updateListeners();
   }
 
   renderContent() {
@@ -80,6 +87,7 @@ implements DragTarget{
 
   private renderProjects() {
       const listEl = document.getElementById(`${this.type}-projects-list`)! as HTMLUListElement;
+      if(listEl){
       listEl.innerHTML = '';
       for (const prjItem of this.assignedProjects) {
         new ProjectItem(this.element.querySelector('ul')!.id, prjItem);
@@ -87,9 +95,19 @@ implements DragTarget{
         const cancel = project.querySelector("#cancel")!;
         cancel.addEventListener("click", () => {
           project.style.display = "none"
-          prjItem.status = ProjectStatus.Deleted;}, 
+          prjItem.status = ProjectStatus.Deleted;
+            const userData = JSON.parse(localStorage.getItem('userData')!);
+          for(const i in userData){
+            if (userData[i].id === project.id) {
+              userData.splice(i,1);
+              localStorage.setItem('userData', JSON.stringify(userData));
+            }
+          }
+          // localStorage.removeItem('userData');
+        }, 
         {once : true});
       }
-        
     }
+    }
+
 }

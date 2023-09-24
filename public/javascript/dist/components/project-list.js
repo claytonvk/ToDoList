@@ -13,7 +13,15 @@ export class ProjectList extends Component {
     constructor(type) {
         super('project-list', 'container', false, `${type}-projects`);
         this.type = type;
-        this.assignedProjects = [];
+        const userDataArray = localStorage.getItem('userData');
+        if (userDataArray) {
+            const userData = JSON.parse(userDataArray);
+            userData.filter((prj) => prj.status == ProjectStatus.Active);
+            this.assignedProjects = userData;
+        }
+        else {
+            this.assignedProjects = [];
+        }
         this.configure();
         this.renderContent();
     }
@@ -58,10 +66,13 @@ export class ProjectList extends Component {
                     return prj.status === ProjectStatus.Deleted;
                 }
             });
+            localStorage.removeItem('userData');
+            const data = projects;
+            localStorage.setItem('userData', JSON.stringify(data));
             this.assignedProjects = relevantProjects;
-            console.log(this.assignedProjects);
             this.renderProjects();
         });
+        projectState.updateListeners();
     }
     renderContent() {
         const listID = `${this.type}-projects-list`;
@@ -70,15 +81,24 @@ export class ProjectList extends Component {
     }
     renderProjects() {
         const listEl = document.getElementById(`${this.type}-projects-list`);
-        listEl.innerHTML = '';
-        for (const prjItem of this.assignedProjects) {
-            new ProjectItem(this.element.querySelector('ul').id, prjItem);
-            const project = document.getElementById(prjItem.id);
-            const cancel = project.querySelector("#cancel");
-            cancel.addEventListener("click", () => {
-                project.style.display = "none";
-                prjItem.status = ProjectStatus.Deleted;
-            }, { once: true });
+        if (listEl) {
+            listEl.innerHTML = '';
+            for (const prjItem of this.assignedProjects) {
+                new ProjectItem(this.element.querySelector('ul').id, prjItem);
+                const project = document.getElementById(prjItem.id);
+                const cancel = project.querySelector("#cancel");
+                cancel.addEventListener("click", () => {
+                    project.style.display = "none";
+                    prjItem.status = ProjectStatus.Deleted;
+                    const userData = JSON.parse(localStorage.getItem('userData'));
+                    for (const i in userData) {
+                        if (userData[i].id === project.id) {
+                            userData.splice(i, 1);
+                            localStorage.setItem('userData', JSON.stringify(userData));
+                        }
+                    }
+                }, { once: true });
+            }
         }
     }
 }
